@@ -18,11 +18,10 @@
 # You can override some default prompt options in your config.fish:
 #
 #     set -g theme_display_git no
-#     set -g theme_display_git_dirty no
+#     set -g theme_display_git_dirty verbose
 #     set -g theme_display_git_untracked no
-#     set -g theme_display_git_ahead_verbose yes
-#     set -g theme_display_git_dirty_verbose yes
-#     set -g theme_display_git_stashed_verbose yes
+#     set -g theme_display_git_ahead verbose
+#     set -g theme_display_git_stashed verbose
 #     set -g theme_display_git_default_branch yes
 #     set -g theme_git_default_branches main trunk
 #     set -g theme_git_worktree_support yes
@@ -256,8 +255,10 @@ function __bobthefish_project_pwd -S -a project_root_dir -a real_pwd -d 'Print t
 end
 
 function __bobthefish_git_ahead -S -d 'Print the ahead/behind state for the current branch'
-    if [ "$theme_display_git_ahead_verbose" = 'yes' ]
+    if [ "$theme_display_git_ahead" = 'verbose' ]
         __bobthefish_git_ahead_verbose
+        return
+    else if [ "$theme_display_git_ahead" = 'no' ]
         return
     end
 
@@ -315,12 +316,12 @@ function __bobthefish_git_dirty_verbose -S -d 'Print a more verbose dirty state 
 end
 
 function __bobthefish_git_stashed -S -d 'Print the stashed state for the current branch'
-    if [ "$theme_display_git_stashed_verbose" = 'yes' ]
+    if [ "$theme_display_git_stashed" = 'verbose' ]
         set -l stashed (command git rev-list --walk-reflogs --count refs/stash 2>/dev/null)
         or return
 
         echo -n "$git_stashed_glyph$stashed"
-    else
+    else if [ "$theme_display_git_stashed" != 'no' ]
         command git rev-parse --verify --quiet refs/stash >/dev/null
         and echo -n "$git_stashed_glyph"
     end
@@ -962,7 +963,7 @@ function __bobthefish_prompt_git -S -a git_root_dir -a real_pwd -d 'Display the 
         set -l show_dirty (command git config --bool bash.showDirtyState 2>/dev/null)
         if [ "$show_dirty" != 'false' ]
             set dirty (command git diff --no-ext-diff --quiet --exit-code 2>/dev/null; or echo -n "$git_dirty_glyph")
-            if [ "$dirty" -a "$theme_display_git_dirty_verbose" = 'yes' ]
+            if [ "$dirty" -a "$theme_display_git_dirty" = 'verbose' ]
                 set dirty "$dirty"(__bobthefish_git_dirty_verbose)
             end
         end
