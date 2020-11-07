@@ -1,17 +1,17 @@
-# bobthefish
+# charliethefish
 
-`bobthefish` is a Powerline-style, Git-aware [fish][fish] theme optimized for awesome.
+`charliethefish` is a Powerline-style, Git-aware [fish][fish] theme optimized for awesome.
 
-[![Oh My Fish](https://img.shields.io/badge/Framework-Oh_My_Fish-blue.svg?style=flat)](https://github.com/oh-my-fish/oh-my-fish) [![MIT License](https://img.shields.io/github/license/oh-my-fish/theme-bobthefish.svg?style=flat)](/LICENSE.md)
+[![Oh My Fish](https://img.shields.io/badge/Framework-Oh_My_Fish-blue.svg?style=flat)](https://github.com/oh-my-fish/oh-my-fish) [![MIT License](https://img.shields.io/github/license/oh-my-fish/theme-bobthefish.svg?style=flat)](/LICENSE)
 
-![bobthefish][screencast]
+![charliethefish][screencast]
 
 
 ### Installation
 
 Be sure to have Oh My Fish installed. Then just:
 
-    omf install bobthefish
+    omf install charliethefish
 
 You will need a [Powerline-patched font][patching] for this to work, unless you enable the compatibility fallback option:
 
@@ -137,7 +137,7 @@ set -g theme_newline_prompt '$ '
 - `theme_display_jobs_verbose`. If set to `yes` this option displays the number of currently running background jobs next to the percent sign.
 - `theme_git_worktree_support`. If you do any git worktree shenanigans, setting this to `yes` will fix incorrect project-relative path display. If you don't do any git worktree shenanigans, leave it disabled. It's faster this way :)
 - `theme_use_abbreviated_branch_name`. Set to `yes` to truncate git branch names in the prompt.
-- `fish_prompt_pwd_dir_length`. bobthefish respects the Fish `$fish_prompt_pwd_dir_length` setting to abbreviate the prompt path. Set to `0` to show the full path, `1` (default) to show only the first character of each parent directory name, or any other number to show up to that many characters.
+- `fish_prompt_pwd_dir_length`. charliethefish respects the Fish `$fish_prompt_pwd_dir_length` setting to abbreviate the prompt path. Set to `0` to show the full path, `1` (default) to show only the first character of each parent directory name, or any other number to show up to that many characters.
 - `theme_project_dir_length`. The same as `$fish_prompt_pwd_dir_length`, but for the path relative to the current project root. Defaults to `0`; set to any other number to show an abbreviated path.
 - `theme_newline_cursor`. Use `yes` to have cursor start on a new line. By default the prompt is only one line. When working with long directories it may be preferrend to have cursor on the next line. Setting this to `clean` instead of `yes` suppresses the caret on the new line.
 - `theme_newline_prompt`. Use a custom prompt with newline cursor. By default this is the chevron right glyph or `>` when powerline fonts are disabled.
@@ -151,13 +151,13 @@ set -g theme_newline_prompt '$ '
 | ![zenburn][zenburn]     | ![terminal-dark][terminal-dark]     |
 | ![nord][nord]           |                                     |
 
-You can use the function `bobthefish_display_colors` to preview the prompts in
+You can use the function `charliethefish_display_colors` to preview the prompts in
 any color scheme.
 
 Set `theme_color_scheme` in a terminal session or in your fish startup files to
 one of the following options to change the prompt colors.
 
-- `dark`. The default bobthefish theme.
+- `dark`. The default charliethefish theme.
 - `light`. A lighter version of the default theme.
 - `solarized` (or `solarized-dark`), `solarized-light`. Dark and light variants
   of Solarized.
@@ -219,7 +219,7 @@ To disable them completely, use an empty function:
 function fish_right_prompt; end
 ```
 
-… Or copy one from your favorite theme, make up something of your own, or copy/paste a bobthefish default function and modify it to your taste!
+… Or copy one from your favorite theme, make up something of your own, or copy/paste a charliethefish default function and modify it to your taste!
 
 ```fish
 function fish_greeting

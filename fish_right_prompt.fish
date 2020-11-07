@@ -2,7 +2,7 @@
 #     set -g theme_date_format "+%a %H:%M"
 #     set -g theme_date_timezone America/Los_Angeles
 
-function __bobthefish_cmd_duration -S -d 'Show command duration'
+function __charliethefish_cmd_duration -S -d 'Show command duration'
     [ "$theme_display_cmd_duration" = "no" ]
     and return
 
@@ -12,23 +12,23 @@ function __bobthefish_cmd_duration -S -d 'Show command duration'
     if [ "$CMD_DURATION" -lt 5000 ]
         echo -ns $CMD_DURATION 'ms'
     else if [ "$CMD_DURATION" -lt 60000 ]
-        __bobthefish_pretty_ms $CMD_DURATION s
+        __charliethefish_pretty_ms $CMD_DURATION s
     else if [ "$CMD_DURATION" -lt 3600000 ]
         set_color $fish_color_error
-        __bobthefish_pretty_ms $CMD_DURATION m
+        __charliethefish_pretty_ms $CMD_DURATION m
     else
         set_color $fish_color_error
-        __bobthefish_pretty_ms $CMD_DURATION h
+        __charliethefish_pretty_ms $CMD_DURATION h
     end
 
     set_color $fish_color_normal
     set_color $fish_color_autosuggestion
 
     [ "$theme_display_date" = "no" ]
-    or echo -ns ' ' $__bobthefish_left_arrow_glyph
+    or echo -ns ' ' $__charliethefish_left_arrow_glyph
 end
 
-function __bobthefish_pretty_ms -S -a ms -a interval -d 'Millisecond formatting for humans'
+function __charliethefish_pretty_ms -S -a ms -a interval -d 'Millisecond formatting for humans'
     set -l interval_ms
     set -l scale 1
 
@@ -55,7 +55,7 @@ function __bobthefish_pretty_ms -S -a ms -a interval -d 'Millisecond formatting 
     end
 end
 
-function __bobthefish_timestamp -S -d 'Show the current timestamp'
+function __charliethefish_timestamp -S -d 'Show the current timestamp'
     [ "$theme_display_date" = "no" ]
     and return
 
@@ -66,15 +66,15 @@ function __bobthefish_timestamp -S -d 'Show the current timestamp'
     env TZ="$theme_date_timezone" date $theme_date_format
 end
 
-function fish_right_prompt -d 'bobthefish is all about the right prompt'
-    set -l __bobthefish_left_arrow_glyph \uE0B3
+function fish_right_prompt -d 'charliethefish is all about the right prompt'
+    set -l __charliethefish_left_arrow_glyph \uE0B3
     if [ "$theme_powerline_fonts" = "no" -a "$theme_nerd_fonts" != "yes" ]
-        set __bobthefish_left_arrow_glyph '<'
+        set __charliethefish_left_arrow_glyph '<'
     end
 
     set_color $fish_color_autosuggestion
 
-    __bobthefish_cmd_duration
-    __bobthefish_timestamp
+    __charliethefish_cmd_duration
+    __charliethefish_timestamp
     set_color normal
 end

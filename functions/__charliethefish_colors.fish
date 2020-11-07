@@ -1,7 +1,7 @@
-function __bobthefish_colors -S -a color_scheme -d 'Define colors used by bobthefish'
+function __charliethefish_colors -S -a color_scheme -d 'Define colors used by charliethefish'
   switch "$color_scheme"
     case 'user'
-      __bobthefish_user_color_scheme_deprecated
+      __charliethefish_user_color_scheme_deprecated
       return
 
     case 'terminal' 'terminal-dark*'
@@ -627,7 +627,7 @@ function __bobthefish_colors -S -a color_scheme -d 'Define colors used by bobthe
   end
 end
 
-function __bobthefish_user_color_scheme_deprecated
+function __charliethefish_user_color_scheme_deprecated
   set -q __color_initial_segment_exit;     or set -l __color_initial_segment_exit     ffffff ce000f --bold
   set -q __color_initial_segment_private;  or set -l __color_initial_segment_private  ffffff 255e87
   set -q __color_initial_segment_su;       or set -l __color_initial_segment_su       ffffff 189303 --bold
@@ -656,14 +656,14 @@ function __bobthefish_user_color_scheme_deprecated
   echo "The 'user' color scheme is deprecated."
   set_color normal
   set_color black -b red
-  echo "To define a custom color scheme, create a 'bobthefish_colors' function:"
+  echo "To define a custom color scheme, create a 'charliethefish_colors' function:"
   set_color normal
   echo
 
-  echo "function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
+  echo "function charliethefish_colors -S -d 'Define a custom charliethefish color scheme'
 
   # optionally include a base color scheme...
-  ___bobthefish_colors default
+  ___charliethefish_colors default
 
   # then override everything you want! note that these must be defined with `set -x`
   set -x color_initial_segment_exit     $__color_initial_segment_exit

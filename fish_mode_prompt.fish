@@ -6,7 +6,7 @@
 # To never show:
 #     set -g theme_display_vi no
 
-function fish_mode_prompt -d 'bobthefish-optimized fish mode indicator'
+function fish_mode_prompt -d 'charliethefish-optimized fish mode indicator'
     [ "$theme_display_vi" != 'no' ]
     or return
 
@@ -16,10 +16,10 @@ function fish_mode_prompt -d 'bobthefish-optimized fish mode indicator'
         -o "$theme_display_vi" = 'yes' ]
     or return
 
-    __bobthefish_colors $theme_color_scheme
+    __charliethefish_colors $theme_color_scheme
 
-    type -q bobthefish_colors
-    and bobthefish_colors
+    type -q charliethefish_colors
+    and charliethefish_colors
 
     set_color normal # clear out anything bold or underline...
 

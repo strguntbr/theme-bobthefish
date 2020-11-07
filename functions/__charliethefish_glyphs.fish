@@ -1,4 +1,4 @@
-function __bobthefish_glyphs -S -d 'Define glyphs used by bobthefish'
+function __charliethefish_glyphs -S -d 'Define glyphs used by charliethefish'
   # Powerline glyphs
   set -x branch_glyph            \uE0A0
   set -x right_black_arrow_glyph \uE0B0

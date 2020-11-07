@@ -1,6 +1,6 @@
-# name: bobthefish
+# name: charliethefish
 #
-# bobthefish is a Powerline-style, Git-aware fish theme optimized for awesome.
+# charliethefish is a Powerline-style, Git-aware fish theme optimized for awesome.
 #
 # You will need a Powerline-patched font for this to work:
 #
@@ -55,15 +55,15 @@
 # Helper methods
 # ==============================
 
-function __bobthefish_basename -d 'basically basename, but faster'
+function __charliethefish_basename -d 'basically basename, but faster'
     string replace -r '^.*/' '' -- $argv
 end
 
-function __bobthefish_dirname -d 'basically dirname, but faster'
+function __charliethefish_dirname -d 'basically dirname, but faster'
     string replace -r '/[^/]+/?$' '' -- $argv
 end
 
-function __bobthefish_pwd -d 'Get a normalized $PWD'
+function __charliethefish_pwd -d 'Get a normalized $PWD'
     # The pwd builtin accepts `-P` on at least Fish 3.x, but fall back to $PWD if that doesn't work
     builtin pwd -P 2>/dev/null
     or echo $PWD
@@ -71,12 +71,12 @@ end
 
 # Note that for fish < 3.0 this falls back to unescaped, rather than trying to do something clever /shrug
 # After we drop support for older fishies, we can inline this without the fallback.
-function __bobthefish_escape_regex -a str -d 'A backwards-compatible `string escape --style=regex` implementation'
+function __charliethefish_escape_regex -a str -d 'A backwards-compatible `string escape --style=regex` implementation'
     string escape --style=regex "$str" 2>/dev/null
     or echo "$str"
 end
 
-function __bobthefish_git_branch -S -d 'Get the current git branch (or commitish)'
+function __charliethefish_git_branch -S -d 'Get the current git branch (or commitish)'
     set -l branch (command git symbolic-ref HEAD | string replace -r '^refs/heads/' '' 2>/dev/null)
     and begin
         [ -n "$theme_git_default_branches" ]
@@ -104,19 +104,19 @@ function __bobthefish_git_branch -S -d 'Get the current git branch (or commitish
     echo "$detached_glyph $branch"
 end
 
-function __bobthefish_hg_branch -S -d 'Get the current hg branch'
+function __charliethefish_hg_branch -S -d 'Get the current hg branch'
     set -l branch (command hg branch 2>/dev/null)
     set -l book (command hg book | command grep \* | cut -d\  -f3)
     echo "$branch_glyph $branch @ $book"
 end
 
-function __bobthefish_pretty_parent -S -a child_dir -d 'Print a parent directory, shortened to fit the prompt'
+function __charliethefish_pretty_parent -S -a child_dir -d 'Print a parent directory, shortened to fit the prompt'
     set -q fish_prompt_pwd_dir_length
     or set -l fish_prompt_pwd_dir_length 1
 
     # Replace $HOME with ~
     set -l real_home ~
-    set -l parent_dir (string replace -r '^'(__bobthefish_escape_regex "$real_home")'($|/)' '~$1' (__bobthefish_dirname $child_dir))
+    set -l parent_dir (string replace -r '^'(__charliethefish_escape_regex "$real_home")'($|/)' '~$1' (__charliethefish_dirname $child_dir))
 
     # Must check whether `$parent_dir = /` if using native dirname
     if [ -z "$parent_dir" ]
@@ -132,7 +132,7 @@ function __bobthefish_pretty_parent -S -a child_dir -d 'Print a parent directory
     string replace -ar '(\.?[^/]{'"$fish_prompt_pwd_dir_length"'})[^/]*/' '$1/' "$parent_dir/"
 end
 
-function __bobthefish_ignore_vcs_dir -a real_pwd -d 'Check whether the current directory should be ignored as a VCS segment'
+function __charliethefish_ignore_vcs_dir -a real_pwd -d 'Check whether the current directory should be ignored as a VCS segment'
     for p in $theme_vcs_ignore_paths
         set ignore_path (realpath $p 2>/dev/null)
         switch $real_pwd/
@@ -143,12 +143,12 @@ function __bobthefish_ignore_vcs_dir -a real_pwd -d 'Check whether the current d
     end
 end
 
-function __bobthefish_git_project_dir -S -a real_pwd -d 'Print the current git project base directory'
+function __charliethefish_git_project_dir -S -a real_pwd -d 'Print the current git project base directory'
     [ "$theme_display_git" = 'no' ]
     and return
 
     set -q theme_vcs_ignore_paths
-    and [ (__bobthefish_ignore_vcs_dir $real_pwd) ]
+    and [ (__charliethefish_ignore_vcs_dir $real_pwd) ]
     and return
 
     if [ "$theme_git_worktree_support" != 'yes' ]
@@ -175,7 +175,7 @@ function __bobthefish_git_project_dir -S -a real_pwd -d 'Print the current git p
             [ "$d" = '/' ]
             and return
 
-            set d (__bobthefish_dirname $d)
+            set d (__charliethefish_dirname $d)
         end
         return
     end
@@ -203,7 +203,7 @@ function __bobthefish_git_project_dir -S -a real_pwd -d 'Print the current git p
             return
     end
 
-    set -l project_dir (__bobthefish_dirname $git_dir)
+    set -l project_dir (__charliethefish_dirname $git_dir)
 
     switch $real_pwd/
         case $project_dir/\*
@@ -218,12 +218,12 @@ function __bobthefish_git_project_dir -S -a real_pwd -d 'Print the current git p
     end
 end
 
-function __bobthefish_hg_project_dir -S -a real_pwd -d 'Print the current hg project base directory'
+function __charliethefish_hg_project_dir -S -a real_pwd -d 'Print the current hg project base directory'
     [ "$theme_display_hg" = 'yes' ]
     or return
 
     set -q theme_vcs_ignore_paths
-    and [ (__bobthefish_ignore_vcs_dir $real_pwd) ]
+    and [ (__charliethefish_ignore_vcs_dir $real_pwd) ]
     and return
 
     set -l d $real_pwd
@@ -236,15 +236,15 @@ function __bobthefish_hg_project_dir -S -a real_pwd -d 'Print the current hg pro
         [ "$d" = '/' ]
         and return
 
-        set d (__bobthefish_dirname $d)
+        set d (__charliethefish_dirname $d)
     end
 end
 
-function __bobthefish_project_pwd -S -a project_root_dir -a real_pwd -d 'Print the working directory relative to project root'
+function __charliethefish_project_pwd -S -a project_root_dir -a real_pwd -d 'Print the working directory relative to project root'
     set -q theme_project_dir_length
     or set -l theme_project_dir_length 0
 
-    set -l project_dir (string replace -r '^'(__bobthefish_escape_regex "$project_root_dir")'($|/)' '' $real_pwd)
+    set -l project_dir (string replace -r '^'(__charliethefish_escape_regex "$project_root_dir")'($|/)' '' $real_pwd)
 
     if [ $theme_project_dir_length -eq 0 ]
         echo -n $project_dir
@@ -254,9 +254,9 @@ function __bobthefish_project_pwd -S -a project_root_dir -a real_pwd -d 'Print t
     string replace -ar '(\.?[^/]{'"$theme_project_dir_length"'})[^/]*/' '$1/' $project_dir
 end
 
-function __bobthefish_git_ahead -S -d 'Print the ahead/behind state for the current branch'
+function __charliethefish_git_ahead -S -d 'Print the ahead/behind state for the current branch'
     if [ "$theme_display_git_ahead" = 'verbose' ]
-        __bobthefish_git_ahead_verbose
+        __charliethefish_git_ahead_verbose
         return
     else if [ "$theme_display_git_ahead" = 'no' ]
         return
@@ -288,7 +288,7 @@ function __bobthefish_git_ahead -S -d 'Print the ahead/behind state for the curr
     end
 end
 
-function __bobthefish_git_ahead_verbose -S -d 'Print a more verbose ahead/behind state for the current branch'
+function __charliethefish_git_ahead_verbose -S -d 'Print a more verbose ahead/behind state for the current branch'
     set -l commits (command git rev-list --left-right '@{upstream}...HEAD' 2>/dev/null)
     or return
 
@@ -308,14 +308,14 @@ function __bobthefish_git_ahead_verbose -S -d 'Print a more verbose ahead/behind
     end
 end
 
-function __bobthefish_git_dirty_verbose -S -d 'Print a more verbose dirty state for the current working tree'
+function __charliethefish_git_dirty_verbose -S -d 'Print a more verbose dirty state for the current working tree'
     set -l changes (command git diff --numstat | awk '{ added += $1; removed += $2 } END { print "+" added "/-" removed }')
     or return
 
     echo "$changes " | string replace -r '(\+0/(-0)?|/-0)' ''
 end
 
-function __bobthefish_git_stashed -S -d 'Print the stashed state for the current branch'
+function __charliethefish_git_stashed -S -d 'Print the stashed state for the current branch'
     if [ "$theme_display_git_stashed" = 'verbose' ]
         set -l stashed (command git rev-list --walk-reflogs --count refs/stash 2>/dev/null)
         or return
@@ -332,7 +332,7 @@ end
 # Segment functions
 # ==============================
 
-function __bobthefish_start_segment -S -d 'Start a prompt segment'
+function __charliethefish_start_segment -S -d 'Start a prompt segment'
     set -l bg $argv[1]
     set -e argv[1]
     set -l fg $argv[1]
@@ -341,7 +341,7 @@ function __bobthefish_start_segment -S -d 'Start a prompt segment'
     set_color normal # clear out anything bold or underline...
     set_color -b $bg $fg $argv
 
-    switch "$__bobthefish_current_bg"
+    switch "$__charliethefish_current_bg"
         case ''
             # If there's no background, just start one
             echo -n ' '
@@ -350,15 +350,15 @@ function __bobthefish_start_segment -S -d 'Start a prompt segment'
             echo -ns $right_arrow_glyph ' '
         case '*'
             # otherwise, draw the end of the previous segment and the start of the next
-            set_color $__bobthefish_current_bg
+            set_color $__charliethefish_current_bg
             echo -ns $right_black_arrow_glyph ' '
             set_color $fg $argv
     end
 
-    set __bobthefish_current_bg $bg
+    set __charliethefish_current_bg $bg
 end
 
-function __bobthefish_path_segment -S -a segment_dir -d 'Display a shortened form of a directory'
+function __charliethefish_path_segment -S -a segment_dir -d 'Display a shortened form of a directory'
     set -l segment_color $color_path
     set -l segment_basename_color $color_path_basename
 
@@ -367,7 +367,7 @@ function __bobthefish_path_segment -S -a segment_dir -d 'Display a shortened for
         set segment_basename_color $color_path_nowrite_basename
     end
 
-    __bobthefish_start_segment $segment_color
+    __charliethefish_start_segment $segment_color
 
     set -l directory
     set -l parent
@@ -378,8 +378,8 @@ function __bobthefish_path_segment -S -a segment_dir -d 'Display a shortened for
         case "$HOME"
             set directory '~'
         case '*'
-            set parent (__bobthefish_pretty_parent "$segment_dir")
-            set directory (__bobthefish_basename "$segment_dir")
+            set parent (__charliethefish_pretty_parent "$segment_dir")
+            set directory (__charliethefish_basename "$segment_dir")
     end
 
     echo -n $parent
@@ -387,10 +387,10 @@ function __bobthefish_path_segment -S -a segment_dir -d 'Display a shortened for
     echo -ns $directory ' '
 end
 
-function __bobthefish_finish_segments -S -d 'Close open prompt segments'
-    if [ -n "$__bobthefish_current_bg" ]
+function __charliethefish_finish_segments -S -d 'Close open prompt segments'
+    if [ -n "$__charliethefish_current_bg" ]
         set_color normal
-        set_color $__bobthefish_current_bg
+        set_color $__charliethefish_current_bg
         echo -ns $right_black_arrow_glyph ' '
     end
 
@@ -410,7 +410,7 @@ function __bobthefish_finish_segments -S -d 'Close open prompt segments'
     end
 
     set_color normal
-    set __bobthefish_current_bg
+    set __charliethefish_current_bg
 end
 
 
@@ -418,7 +418,7 @@ end
 # Status segment
 # ==============================
 
-function __bobthefish_prompt_status -S -a last_status -d 'Display flags for a non-zero exit status, private mode, root user, and background jobs'
+function __charliethefish_prompt_status -S -a last_status -d 'Display flags for a non-zero exit status, private mode, root user, and background jobs'
     set -l nonzero
     set -l superuser
     set -l bg_jobs
@@ -459,7 +459,7 @@ function __bobthefish_prompt_status -S -a last_status -d 'Display flags for a no
     end
 
     if [ "$nonzero" -o "$fish_private_mode" -o "$superuser" -o "$bg_jobs" ]
-        __bobthefish_start_segment $color_initial_segment_exit
+        __charliethefish_start_segment $color_initial_segment_exit
         if [ "$nonzero" ]
             set_color normal
             set_color -b $color_initial_segment_exit
@@ -504,7 +504,7 @@ end
 # Container and VM segments
 # ==============================
 
-function __bobthefish_prompt_vagrant -S -d 'Display Vagrant status'
+function __charliethefish_prompt_vagrant -S -d 'Display Vagrant status'
     [ "$theme_display_vagrant" = 'yes' -a -f Vagrantfile ]
     or return
 
@@ -515,17 +515,17 @@ function __bobthefish_prompt_vagrant -S -d 'Display Vagrant status'
         if [ -n "$id" ]
             switch "$file"
                 case '*/virtualbox/id'
-                    __bobthefish_prompt_vagrant_vbox $id
+                    __charliethefish_prompt_vagrant_vbox $id
                 case '*/vmware_fusion/id'
-                    __bobthefish_prompt_vagrant_vmware $id
+                    __charliethefish_prompt_vagrant_vmware $id
                 case '*/parallels/id'
-                    __bobthefish_prompt_vagrant_parallels $id
+                    __charliethefish_prompt_vagrant_parallels $id
             end
         end
     end
 end
 
-function __bobthefish_prompt_vagrant_vbox -S -a id -d 'Display VirtualBox Vagrant status'
+function __charliethefish_prompt_vagrant_vbox -S -a id -d 'Display VirtualBox Vagrant status'
     set -l vagrant_status
     set -l vm_status (VBoxManage showvminfo --machinereadable $id 2>/dev/null | command grep 'VMState=' | tr -d '"' | cut -d '=' -f 2)
 
@@ -547,11 +547,11 @@ function __bobthefish_prompt_vagrant_vbox -S -a id -d 'Display VirtualBox Vagran
     [ -z "$vagrant_status" ]
     and return
 
-    __bobthefish_start_segment $color_vagrant
+    __charliethefish_start_segment $color_vagrant
     echo -ns $vagrant_status ' '
 end
 
-function __bobthefish_prompt_vagrant_vmware -S -a id -d 'Display VMWare Vagrant status'
+function __charliethefish_prompt_vagrant_vmware -S -a id -d 'Display VMWare Vagrant status'
     set -l vagrant_status
     if [ (pgrep -f "$id") ]
         set vagrant_status "$vagrant_status$vagrant_running_glyph"
@@ -562,11 +562,11 @@ function __bobthefish_prompt_vagrant_vmware -S -a id -d 'Display VMWare Vagrant 
     [ -z "$vagrant_status" ]
     and return
 
-    __bobthefish_start_segment $color_vagrant
+    __charliethefish_start_segment $color_vagrant
     echo -ns $vagrant_status ' '
 end
 
-function __bobthefish_prompt_vagrant_parallels -S -d 'Display Parallels Vagrant status'
+function __charliethefish_prompt_vagrant_parallels -S -d 'Display Parallels Vagrant status'
     set -l vagrant_status
     set -l vm_status (prlctl list $id -o status 2>/dev/null | command tail -1)
 
@@ -588,19 +588,19 @@ function __bobthefish_prompt_vagrant_parallels -S -d 'Display Parallels Vagrant 
     [ -z "$vagrant_status" ]
     and return
 
-    __bobthefish_start_segment $color_vagrant
+    __charliethefish_start_segment $color_vagrant
     echo -ns $vagrant_status ' '
 end
 
-function __bobthefish_prompt_docker -S -d 'Display Docker machine name'
+function __charliethefish_prompt_docker -S -d 'Display Docker machine name'
     [ "$theme_display_docker_machine" = 'no' -o -z "$DOCKER_MACHINE_NAME" ]
     and return
 
-    __bobthefish_start_segment $color_vagrant
+    __charliethefish_start_segment $color_vagrant
     echo -ns $DOCKER_MACHINE_NAME ' '
 end
 
-function __bobthefish_k8s_context -S -d 'Get the current k8s context'
+function __charliethefish_k8s_context -S -d 'Get the current k8s context'
     set -l config_paths "$HOME/.kube/config"
     [ -n "$KUBECONFIG" ]
     and set config_paths (string split ':' "$KUBECONFIG") $config_paths
@@ -624,19 +624,19 @@ function __bobthefish_k8s_context -S -d 'Get the current k8s context'
     return 1
 end
 
-function __bobthefish_k8s_namespace -S -d 'Get the current k8s namespace'
+function __charliethefish_k8s_namespace -S -d 'Get the current k8s namespace'
     kubectl config view --minify --output "jsonpath={..namespace}"
 end
 
-function __bobthefish_prompt_k8s_context -S -d 'Show current Kubernetes context'
+function __charliethefish_prompt_k8s_context -S -d 'Show current Kubernetes context'
     [ "$theme_display_k8s_context" = 'yes' ]
     or return
 
-    set -l context (__bobthefish_k8s_context)
+    set -l context (__charliethefish_k8s_context)
     or return
 
     [ "$theme_display_k8s_namespace" = 'yes' ]
-    and set -l namespace (__bobthefish_k8s_namespace)
+    and set -l namespace (__charliethefish_k8s_namespace)
 
     [ -z $context -o "$context" = 'default' ]
     and [ -z $namespace -o "$namespace" = 'default' ]
@@ -646,7 +646,7 @@ function __bobthefish_prompt_k8s_context -S -d 'Show current Kubernetes context'
     [ -n "$namespace" ]
     and set segment $segment ":" $namespace
 
-    __bobthefish_start_segment $color_k8s
+    __charliethefish_start_segment $color_k8s
     echo -ns $segment " "
 end
 
@@ -655,7 +655,7 @@ end
 # Cloud Tools
 # ==============================
 
-function __bobthefish_prompt_aws_vault_profile -S -d 'Show AWS Vault profile'
+function __charliethefish_prompt_aws_vault_profile -S -d 'Show AWS Vault profile'
     [ "$theme_display_aws_vault_profile" = 'yes' ]
     or return
 
@@ -679,7 +679,7 @@ function __bobthefish_prompt_aws_vault_profile -S -d 'Show AWS Vault profile'
     [ $diff_mins -le 0 ]
     and set -l status_color $color_aws_vault_expired
 
-    __bobthefish_start_segment $status_color
+    __charliethefish_start_segment $status_color
     echo -ns $segment " "
 end
 
@@ -690,16 +690,16 @@ end
 
 # Polyfill for fish < 2.5.0
 if not type -q prompt_hostname
-    if not set -q __bobthefish_prompt_hostname
-        set -g __bobthefish_prompt_hostname (hostname | string replace -r '\..*' '')
+    if not set -q __charliethefish_prompt_hostname
+        set -g __charliethefish_prompt_hostname (hostname | string replace -r '\..*' '')
     end
 
     function prompt_hostname
-        echo $__bobthefish_prompt_hostname
+        echo $__charliethefish_prompt_hostname
     end
 end
 
-function __bobthefish_prompt_user -S -d 'Display current user and hostname'
+function __charliethefish_prompt_user -S -d 'Display current user and hostname'
     [ "$theme_display_user" = 'yes' -o \( "$theme_display_user" != 'no' -a -n "$SSH_CLIENT" \) -o \( -n "$default_user" -a "$USER" != "$default_user" \) ]
     and set -l display_user
 
@@ -710,7 +710,7 @@ function __bobthefish_prompt_user -S -d 'Display current user and hostname'
     and set -l display_hostname
 
     if set -q display_user
-        __bobthefish_start_segment $color_username
+        __charliethefish_start_segment $color_username
         echo -ns (whoami)
     end
 
@@ -718,7 +718,7 @@ function __bobthefish_prompt_user -S -d 'Display current user and hostname'
         if set -q display_user
             echo -ns ' '
         else
-            __bobthefish_start_segment $color_username
+            __charliethefish_start_segment $color_username
         end
         echo -ns "($SUDO_USER)"
     end
@@ -732,7 +732,7 @@ function __bobthefish_prompt_user -S -d 'Display current user and hostname'
             set_color -b $color_hostname[1] $color_hostname[2..-1]
             echo -ns '@' (prompt_hostname)
         else
-            __bobthefish_start_segment $color_hostname
+            __charliethefish_start_segment $color_hostname
             echo -ns (prompt_hostname)
         end
     end
@@ -748,7 +748,7 @@ end
 # Virtual environment segments
 # ==============================
 
-function __bobthefish_rvm_parse_ruby -S -a ruby_string -a scope -d 'Parse RVM Ruby string'
+function __charliethefish_rvm_parse_ruby -S -a ruby_string -a scope -d 'Parse RVM Ruby string'
     # Function arguments:
     # - 'ruby-2.2.3@rails', 'jruby-1.7.19'...
     # - 'default' or 'current'
@@ -760,7 +760,7 @@ function __bobthefish_rvm_parse_ruby -S -a ruby_string -a scope -d 'Parse RVM Ru
     set -e __
 end
 
-function __bobthefish_rvm_info -S -d 'Current Ruby information from RVM'
+function __charliethefish_rvm_info -S -d 'Current Ruby information from RVM'
     # look for rvm install path
     set -q rvm_path
     or set -l rvm_path ~/.rvm /usr/local/rvm
@@ -780,8 +780,8 @@ function __bobthefish_rvm_info -S -d 'Current Ruby information from RVM'
     set -l __rvm_current_ruby_version
 
     # Parse default and current Rubies to global variables
-    __bobthefish_rvm_parse_ruby $__rvm_default_ruby default
-    __bobthefish_rvm_parse_ruby $__rvm_current_ruby current
+    __charliethefish_rvm_parse_ruby $__rvm_default_ruby default
+    __charliethefish_rvm_parse_ruby $__rvm_current_ruby current
     # Show unobtrusive RVM prompt
 
     # If interpreter differs form default interpreter, show everything:
@@ -804,13 +804,13 @@ function __bobthefish_rvm_info -S -d 'Current Ruby information from RVM'
     end
 end
 
-function __bobthefish_prompt_rubies -S -d 'Display current Ruby information'
+function __charliethefish_prompt_rubies -S -d 'Display current Ruby information'
     [ "$theme_display_ruby" = 'no' ]
     and return
 
     set -l ruby_version
     if type -fq rvm-prompt
-        set ruby_version (__bobthefish_rvm_info)
+        set ruby_version (__charliethefish_rvm_info)
     else if type -fq rbenv
         set ruby_version (rbenv version-name)
         # Don't show global ruby version...
@@ -843,11 +843,11 @@ function __bobthefish_prompt_rubies -S -d 'Display current Ruby information'
     [ -z "$ruby_version" ]
     and return
 
-    __bobthefish_start_segment $color_rvm
+    __charliethefish_start_segment $color_rvm
     echo -ns $ruby_glyph $ruby_version ' '
 end
 
-function __bobthefish_virtualenv_python_version -S -d 'Get current Python version'
+function __charliethefish_virtualenv_python_version -S -d 'Get current Python version'
     switch (python --version 2>&1 | tr '\n' ' ')
         case 'Python 2*PyPy*'
             echo $pypy_glyph
@@ -860,14 +860,14 @@ function __bobthefish_virtualenv_python_version -S -d 'Get current Python versio
     end
 end
 
-function __bobthefish_prompt_virtualfish -S -d "Display current Python virtual environment (only for virtualfish, virtualenv's activate.fish changes prompt by itself) or conda environment."
+function __charliethefish_prompt_virtualfish -S -d "Display current Python virtual environment (only for virtualfish, virtualenv's activate.fish changes prompt by itself) or conda environment."
     [ "$theme_display_virtualenv" = 'no' -o -z "$VIRTUAL_ENV" -a -z "$CONDA_DEFAULT_ENV" ]
     and return
 
-    set -l version_glyph (__bobthefish_virtualenv_python_version)
+    set -l version_glyph (__charliethefish_virtualenv_python_version)
 
     if [ "$version_glyph" ]
-        __bobthefish_start_segment $color_virtualfish
+        __charliethefish_start_segment $color_virtualfish
         echo -ns $virtualenv_glyph $version_glyph ' '
     end
 
@@ -878,25 +878,25 @@ function __bobthefish_prompt_virtualfish -S -d "Display current Python virtual e
     end
 end
 
-function __bobthefish_prompt_virtualgo -S -d 'Display current Go virtual environment'
+function __charliethefish_prompt_virtualgo -S -d 'Display current Go virtual environment'
     [ "$theme_display_virtualgo" = 'no' -o -z "$VIRTUALGO" ]
     and return
 
-    __bobthefish_start_segment $color_virtualgo
+    __charliethefish_start_segment $color_virtualgo
     echo -ns $go_glyph ' ' (basename "$VIRTUALGO") ' '
     set_color normal
 end
 
-function __bobthefish_prompt_desk -S -d 'Display current desk environment'
+function __charliethefish_prompt_desk -S -d 'Display current desk environment'
     [ "$theme_display_desk" = 'no' -o -z "$DESK_ENV" ]
     and return
 
-    __bobthefish_start_segment $color_desk
+    __charliethefish_start_segment $color_desk
     echo -ns $desk_glyph ' ' (basename  -a -s ".fish" "$DESK_ENV") ' '
     set_color normal
 end
 
-function __bobthefish_prompt_nvm -S -d 'Display current node version through NVM'
+function __charliethefish_prompt_nvm -S -d 'Display current node version through NVM'
     [ "$theme_display_nvm" = 'yes' -a -n "$NVM_DIR" ]
     or return
 
@@ -905,16 +905,16 @@ function __bobthefish_prompt_nvm -S -d 'Display current node version through NVM
     [ -z $node_version -o "$node_version" = 'none' -o "$node_version" = 'system' ]
     and return
 
-    __bobthefish_start_segment $color_nvm
+    __charliethefish_start_segment $color_nvm
     echo -ns $node_glyph $node_version ' '
     set_color normal
 end
 
-function __bobthefish_prompt_nix -S -d 'Display current nix environment'
+function __charliethefish_prompt_nix -S -d 'Display current nix environment'
     [ "$theme_display_nix" = 'no' -o -z "$IN_NIX_SHELL" ]
     and return
 
-    __bobthefish_start_segment $color_nix
+    __charliethefish_start_segment $color_nix
     echo -ns $nix_glyph $IN_NIX_SHELL ' '
 
     set_color normal
@@ -924,7 +924,7 @@ end
 # VCS segments
 # ==============================
 
-function __bobthefish_prompt_hg -S -a hg_root_dir -a real_pwd -d 'Display the actual hg state'
+function __charliethefish_prompt_hg -S -a hg_root_dir -a real_pwd -d 'Display the actual hg state'
     set -l dirty (command hg stat; or echo -n '*')
 
     set -l flags "$dirty"
@@ -936,42 +936,42 @@ function __bobthefish_prompt_hg -S -a hg_root_dir -a real_pwd -d 'Display the ac
         set flag_colors $color_repo_dirty
     end
 
-    __bobthefish_path_segment $hg_root_dir
+    __charliethefish_path_segment $hg_root_dir
 
-    __bobthefish_start_segment $flag_colors
+    __charliethefish_start_segment $flag_colors
     echo -ns $hg_glyph ' '
 
-    __bobthefish_start_segment $flag_colors
-    echo -ns (__bobthefish_hg_branch) $flags ' '
+    __charliethefish_start_segment $flag_colors
+    echo -ns (__charliethefish_hg_branch) $flags ' '
     set_color normal
 
-    set -l project_pwd (__bobthefish_project_pwd $hg_root_dir $real_pwd)
+    set -l project_pwd (__charliethefish_project_pwd $hg_root_dir $real_pwd)
     if [ "$project_pwd" ]
         if [ -w "$real_pwd" ]
-            __bobthefish_start_segment $color_path
+            __charliethefish_start_segment $color_path
         else
-            __bobthefish_start_segment $color_path_nowrite
+            __charliethefish_start_segment $color_path_nowrite
         end
 
         echo -ns $project_pwd ' '
     end
 end
 
-function __bobthefish_prompt_git -S -a git_root_dir -a real_pwd -d 'Display the actual git state'
+function __charliethefish_prompt_git -S -a git_root_dir -a real_pwd -d 'Display the actual git state'
     set -l dirty ''
     if [ "$theme_display_git_dirty" != 'no' ]
         set -l show_dirty (command git config --bool bash.showDirtyState 2>/dev/null)
         if [ "$show_dirty" != 'false' ]
             set dirty (command git diff --no-ext-diff --quiet --exit-code 2>/dev/null; or echo -n "$git_dirty_glyph")
             if [ "$dirty" -a "$theme_display_git_dirty" = 'verbose' ]
-                set dirty "$dirty"(__bobthefish_git_dirty_verbose)
+                set dirty "$dirty"(__charliethefish_git_dirty_verbose)
             end
         end
     end
 
     set -l staged (command git diff --cached --no-ext-diff --quiet --exit-code 2>/dev/null; or echo -n "$git_staged_glyph")
-    set -l stashed (__bobthefish_git_stashed)
-    set -l ahead (__bobthefish_git_ahead)
+    set -l stashed (__charliethefish_git_stashed)
+    set -l ahead (__charliethefish_git_ahead)
 
     set -l new ''
     if [ "$theme_display_git_untracked" != 'no' ]
@@ -996,19 +996,19 @@ function __bobthefish_prompt_git -S -a git_root_dir -a real_pwd -d 'Display the 
         set flag_colors $color_repo_staged
     end
 
-    __bobthefish_path_segment $git_root_dir
+    __charliethefish_path_segment $git_root_dir
 
-    __bobthefish_start_segment $flag_colors
-    echo -ns (__bobthefish_git_branch) $flags ' '
+    __charliethefish_start_segment $flag_colors
+    echo -ns (__charliethefish_git_branch) $flags ' '
     set_color normal
 
     if [ "$theme_git_worktree_support" != 'yes' ]
-        set -l project_pwd (__bobthefish_project_pwd $git_root_dir $real_pwd)
+        set -l project_pwd (__charliethefish_project_pwd $git_root_dir $real_pwd)
         if [ "$project_pwd" ]
             if [ -w "$real_pwd" ]
-                __bobthefish_start_segment $color_path
+                __charliethefish_start_segment $color_path
             else
-                __bobthefish_start_segment $color_path_nowrite
+                __charliethefish_start_segment $color_path_nowrite
             end
 
             echo -ns $project_pwd ' '
@@ -1036,18 +1036,18 @@ function __bobthefish_prompt_git -S -a git_root_dir -a real_pwd -d 'Display the 
             set colors $color_path_nowrite
         end
 
-        __bobthefish_start_segment $colors
+        __charliethefish_start_segment $colors
 
         # handle work_dir != project dir
         if [ "$work_dir" ]
-            set -l work_parent (__bobthefish_dirname $work_dir)
+            set -l work_parent (__charliethefish_dirname $work_dir)
             if [ "$work_parent" ]
                 echo -n "$work_parent/"
             end
 
             set_color normal
             set_color -b $color_repo_work_tree
-            echo -n (__bobthefish_basename $work_dir)
+            echo -n (__charliethefish_basename $work_dir)
 
             set_color normal
             set_color -b $colors
@@ -1070,15 +1070,15 @@ function __bobthefish_prompt_git -S -a git_root_dir -a real_pwd -d 'Display the 
                 set colors $color_path_nowrite
             end
 
-            __bobthefish_start_segment $colors
+            __charliethefish_start_segment $colors
 
             echo -ns $project_pwd ' '
         end
     end
 end
 
-function __bobthefish_prompt_dir -S -a real_pwd -d 'Display a shortened form of the current directory'
-    __bobthefish_path_segment "$real_pwd"
+function __charliethefish_prompt_dir -S -a real_pwd -d 'Display a shortened form of the current directory'
+    __charliethefish_path_segment "$real_pwd"
 end
 
 
@@ -1086,7 +1086,7 @@ end
 # Apply theme
 # ==============================
 
-function fish_prompt -d 'bobthefish, a fish theme optimized for awesome'
+function fish_prompt -d 'charliethefish, a fish theme optimized for awesome'
     # Save the last status for later (do this before anything else)
     set -l last_status $status
 
@@ -1096,58 +1096,58 @@ function fish_prompt -d 'bobthefish, a fish theme optimized for awesome'
         return
     end
 
-    __bobthefish_glyphs
-    __bobthefish_colors $theme_color_scheme
+    __charliethefish_glyphs
+    __charliethefish_colors $theme_color_scheme
 
-    type -q bobthefish_colors
-    and bobthefish_colors
+    type -q charliethefish_colors
+    and charliethefish_colors
 
     # Start each line with a blank slate
-    set -l __bobthefish_current_bg
+    set -l __charliethefish_current_bg
 
     # Status flags and input mode
-    __bobthefish_prompt_status $last_status
+    __charliethefish_prompt_status $last_status
 
     # User / hostname info
-    __bobthefish_prompt_user
+    __charliethefish_prompt_user
 
     # Containers and VMs
-    __bobthefish_prompt_vagrant
-    __bobthefish_prompt_docker
-    __bobthefish_prompt_k8s_context
+    __charliethefish_prompt_vagrant
+    __charliethefish_prompt_docker
+    __charliethefish_prompt_k8s_context
 
     # Cloud Tools
-    __bobthefish_prompt_aws_vault_profile
+    __charliethefish_prompt_aws_vault_profile
 
     # Virtual environments
-    __bobthefish_prompt_nix
-    __bobthefish_prompt_desk
-    __bobthefish_prompt_rubies
-    __bobthefish_prompt_virtualfish
-    __bobthefish_prompt_virtualgo
-    __bobthefish_prompt_nvm
+    __charliethefish_prompt_nix
+    __charliethefish_prompt_desk
+    __charliethefish_prompt_rubies
+    __charliethefish_prompt_virtualfish
+    __charliethefish_prompt_virtualgo
+    __charliethefish_prompt_nvm
 
-    set -l real_pwd (__bobthefish_pwd)
+    set -l real_pwd (__charliethefish_pwd)
 
     # VCS
-    set -l git_root_dir (__bobthefish_git_project_dir $real_pwd)
-    set -l hg_root_dir (__bobthefish_hg_project_dir $real_pwd)
+    set -l git_root_dir (__charliethefish_git_project_dir $real_pwd)
+    set -l hg_root_dir (__charliethefish_hg_project_dir $real_pwd)
 
     if [ "$git_root_dir" -a "$hg_root_dir" ]
         # only show the closest parent
         switch $git_root_dir
             case $hg_root_dir\*
-                __bobthefish_prompt_git $git_root_dir $real_pwd
+                __charliethefish_prompt_git $git_root_dir $real_pwd
             case \*
-                __bobthefish_prompt_hg $hg_root_dir $real_pwd
+                __charliethefish_prompt_hg $hg_root_dir $real_pwd
         end
     else if [ "$git_root_dir" ]
-        __bobthefish_prompt_git $git_root_dir $real_pwd
+        __charliethefish_prompt_git $git_root_dir $real_pwd
     else if [ "$hg_root_dir" ]
-        __bobthefish_prompt_hg $hg_root_dir $real_pwd
+        __charliethefish_prompt_hg $hg_root_dir $real_pwd
     else
-        __bobthefish_prompt_dir $real_pwd
+        __charliethefish_prompt_dir $real_pwd
     end
 
-    __bobthefish_finish_segments
+    __charliethefish_finish_segments
 end

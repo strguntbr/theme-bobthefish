@@ -11,9 +11,9 @@ set -l latest_version (echo -e "$required_version\\n$installed_version" | comman
 
 if [ "$installed_version" != "$latest_version" ]
   set_color red 2>/dev/null
-  echo "Fish $required_version or greater is required for bobthefish."
+  echo "Fish $required_version or greater is required for charliethefish."
   echo
-  echo "To use bobthefish with Fish $installed_version, checkout the `support/fish-2.2.x` branch"
-  echo "in $OMF_PATH/themes/bobthefish/"
+  echo "To use charliethefish with Fish $installed_version, checkout the `support/fish-2.2.x` branch"
+  echo "in $OMF_PATH/themes/charliethefish/"
   set color normal 2>/dev/null
 end
