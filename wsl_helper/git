@@ -1,0 +1,27 @@
+#!/bin/bash
+# WSL 'git' wrapper, save as /usr/local/bin/git and chmod a+x
+
+#/usr/bin/git "${@}"
+if [ "$1" = "-C" ]; then
+  WINDOWS_PATH=`wslpath -a -w "$2"`
+  if [ "${WINDOWS_PATH:0:7}" = "\\\\wsl$\\" ]; then
+    /usr/bin/git "$@"
+  else
+    echo "1> ${@}" >> ~marcus/.git_workaround.log
+    shift 2
+    /mnt/c/Program\ Files/Git/bin/git.exe -C "$WINDOWS_PATH" "${@}"
+  fi
+else
+  WINDOWS_PATH=`wslpath -a -w "$PWD"`
+  if [ "${WINDOWS_PATH:0:7}" = "\\\\wsl$\\" ]; then
+    /usr/bin/git "$@"
+  else
+    echo "2> ${@}" >> ~marcus/.git_workaround.log
+    if [ "$1" = "rev-parse" ] && [ "$2" = "--show-toplevel" ]; then
+      WINDOWS_PATH=`/mnt/c/Program\ Files/Git/bin/git.exe "${@}"`
+      wslpath -a -u "$WINDOWS_PATH"
+    else
+      /mnt/c/Program\ Files/Git/bin/git.exe "${@}"
+    fi
+  fi
+fi
