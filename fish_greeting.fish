@@ -1,10 +1,17 @@
-function fish_greeting -d "What's up, fish?"
-    set_color $fish_color_autosuggestion
-    uname -nmsr
-
-    # TODO: `command -q -s` only works on fish 2.5+, so hold off on that for now
-    command -s uptime >/dev/null
-    and command uptime
-
-    set_color normal
+function fish_greeting
+    if command -s fortune >/dev/null
+        if command -s cowsay >/dev/null
+            if command -s lolcat >/dev/null
+                command fortune | cowsay -f $OMF_PATH/themes/charliethefish/fish.cow -n | lolcat
+            else
+                command fortune | cowsay -f $OMF_PATH/themes/charliethefish/fish.cow -n
+            end
+        else
+            if command -s lolcat >/dev/null
+                command fortune | lolcat
+            else
+                command fortune
+            end
+        end
+    end
 end
