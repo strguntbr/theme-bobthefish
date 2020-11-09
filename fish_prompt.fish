@@ -699,6 +699,13 @@ if not type -q prompt_hostname
     end
 end
 
+function __charliethefish_prompt_label -S -d 'Display a user set label'
+    if set -q theme_display_label
+        __charliethefish_start_segment $color_label
+        echo -ns "$theme_display_label"
+    end
+end
+
 function __charliethefish_prompt_user -S -d 'Display current user and hostname'
     [ "$theme_display_user" = 'yes' -o \( "$theme_display_user" != 'no' -a -n "$SSH_CLIENT" \) -o \( -n "$default_user" -a "$USER" != "$default_user" \) ]
     and set -l display_user
@@ -1109,6 +1116,7 @@ function fish_prompt -d 'charliethefish, a fish theme optimized for awesome'
     __charliethefish_prompt_status $last_status
 
     # User / hostname info
+    __charliethefish_prompt_label
     __charliethefish_prompt_user
 
     # Containers and VMs
