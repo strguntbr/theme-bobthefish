@@ -702,7 +702,7 @@ end
 function __charliethefish_prompt_label -S -d 'Display a user set label'
     if set -q theme_display_label
         __charliethefish_start_segment $color_label
-        echo -ns "$theme_display_label"
+        echo -ns "$theme_display_label "
     end
 end
 
