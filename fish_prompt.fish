@@ -425,6 +425,7 @@ function __charliethefish_prompt_status -S -a last_status -d 'Display flags for 
     set -l nonzero
     set -l superuser
     set -l bg_jobs
+    set -l bg_color
 
     # Last exit was nonzero
     [ $last_status -ne 0 ]
@@ -462,10 +463,16 @@ function __charliethefish_prompt_status -S -a last_status -d 'Display flags for 
     end
 
     if [ "$nonzero" -o "$fish_private_mode" -o "$superuser" -o "$bg_jobs" ]
-        __charliethefish_start_segment $color_initial_segment_exit
+        if [ "$superuser" ]
+            __charliethefish_start_segment $color_initial_segment_su
+        else
+            __charliethefish_start_segment $color_initial_segment_exit
+        end
         if [ "$nonzero" ]
             set_color normal
             set_color -b $color_initial_segment_exit
+            [ "$superuser" ]
+            and set_color -b $color_initial_segment_su
             if [ "$theme_show_exit_status" = 'yes' ]
                 echo -ns $last_status ' '
             else
@@ -475,17 +482,15 @@ function __charliethefish_prompt_status -S -a last_status -d 'Display flags for 
 
         if [ "$fish_private_mode" ]
             set_color normal
-            set_color -b $color_initial_segment_private
+            set_color $color_initial_segment_private
+            [ "$superuser" ]
+            and set_color $color_initial_segment_su
             echo -n $private_glyph
         end
 
         if [ "$superuser" ]
             set_color normal
-            if [ -z "$FAKEROOTKEY" ]
-                set_color -b $color_initial_segment_su
-            else
-                set_color -b $color_initial_segment_exit
-            end
+            set_color -b $color_initial_segment_su
 
             echo -n $superuser_glyph
         end
@@ -493,6 +498,8 @@ function __charliethefish_prompt_status -S -a last_status -d 'Display flags for 
         if [ "$bg_jobs" ]
             set_color normal
             set_color -b $color_initial_segment_jobs
+            [ "$superuser" ]
+            and set_color -b $color_initial_segment_su
             if [ "$theme_display_jobs_verbose" = 'yes' ]
                 echo -ns $bg_job_glyph $bg_jobs ' '
             else

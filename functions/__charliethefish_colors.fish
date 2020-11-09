@@ -9,7 +9,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       [ "$color_scheme" = 'terminal-dark-white' ]; and set colorfg white
       set -x color_initial_segment_exit     white red --bold
       set -x color_initial_segment_private  white black
-      set -x color_initial_segment_su       white green --bold
+      set -x color_initial_segment_su       red white --bold
       set -x color_initial_segment_jobs     white blue --bold
 
       set -x color_path                     black white
@@ -45,7 +45,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       [ "$color_scheme" = 'terminal-light-black' ]; and set colorfg black
       set -x color_initial_segment_exit     black red --bold
       set -x color_initial_segment_private  black white
-      set -x color_initial_segment_su       black green --bold
+      set -x color_initial_segment_su       red white --bold
       set -x color_initial_segment_jobs     black blue --bold
 
       set -x color_path                     white black
@@ -81,7 +81,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       [ "$color_scheme" = 'terminal2-dark-white' ]; and set colorfg white
       set -x color_initial_segment_exit     grey red --bold
       set -x color_initial_segment_private  grey black
-      set -x color_initial_segment_su       grey green --bold
+      set -x color_initial_segment_su       red grey --bold
       set -x color_initial_segment_jobs     grey blue --bold
 
       set -x color_path                     brgrey white
@@ -117,7 +117,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       [ "$color_scheme" = 'terminal2-light-black' ]; and set colorfg black
       set -x color_initial_segment_exit     brgrey red --bold
       set -x color_initial_segment_private  brgrey black
-      set -x color_initial_segment_su       brgrey green --bold
+      set -x color_initial_segment_su       red white --bold
       set -x color_initial_segment_jobs     brgrey blue --bold
 
       set -x color_path                     grey black
@@ -159,7 +159,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $white $red --bold
       set -x color_initial_segment_private  $white $grey
-      set -x color_initial_segment_su       $white $green --bold
+      set -x color_initial_segment_su       $red $white --bold
       set -x color_initial_segment_jobs     $white $blue --bold
 
       set -x color_path                     $grey $white
@@ -212,7 +212,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $base02 $base08 --bold
       set -x color_initial_segment_private  $base02 $base06
-      set -x color_initial_segment_su       $base02 $base0B --bold
+      set -x color_initial_segment_su       $base08 $base06 --bold
       set -x color_initial_segment_jobs     $base02 $base0D --bold
 
       set -x color_path                     $base06 $base02
@@ -265,7 +265,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $base05 $base08 --bold
       set -x color_initial_segment_private  $base05 $base02
-      set -x color_initial_segment_su       $base05 $base0B --bold
+      set -x color_initial_segment_su       $base08 $base05 --bold
       set -x color_initial_segment_jobs     $base05 $base0D --bold
 
       set -x color_path                     $base02 $base05
@@ -318,7 +318,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $base02 $red --bold
       set -x color_initial_segment_private  $base02 $base2
-      set -x color_initial_segment_su       $base02 $green --bold
+      set -x color_initial_segment_su       $red $base2 --bold
       set -x color_initial_segment_jobs     $base02 $blue --bold
 
       set -x color_path                     $base2 $base00
@@ -371,7 +371,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $base2 $red --bold
       set -x color_initial_segment_private  $base2 $base02
-      set -x color_initial_segment_su       $base2 $green --bold
+      set -x color_initial_segment_su       $red $colorfg --bold
       set -x color_initial_segment_jobs     $base2 $blue --bold
 
       set -x color_path                     $base01 $base0
@@ -417,7 +417,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $grey[3] $red[2] --bold
       set -x color_initial_segment_private  $grey[3] $grey[1]
-      set -x color_initial_segment_su       $grey[3] $green[2] --bold
+      set -x color_initial_segment_su       $red[2] $grey[1]
       set -x color_initial_segment_jobs     $grey[3] $blue[3] --bold
 
       set -x color_path                     $grey[1] $grey[2]
@@ -462,7 +462,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $fg[1] $red[2] --bold
       set -x color_initial_segment_private  $fg[1] $bg[1]
-      set -x color_initial_segment_su       $fg[1] $green[2] --bold
+      set -x color_initial_segment_su       $red[2] $fg[1] --bold
       set -x color_initial_segment_jobs     $fg[1] $aqua[2] --bold
 
       set -x color_path                     $bg[1] $fg[2]
@@ -509,7 +509,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $fg $red  --bold
       set -x color_initial_segment_private  $fg $selection
-      set -x color_initial_segment_su       $fg $purple --bold
+      set -x color_initial_segment_su       $red $fg --bold
       set -x color_initial_segment_jobs     $fg $comment --bold
 
       set -x color_path                     $selection $fg
@@ -562,7 +562,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $base05 $base0B --bold
       set -x color_initial_segment_private  $base05 $base02
-      set -x color_initial_segment_su       $base05 $base0E --bold
+      set -x color_initial_segment_su       $base0B $base05 --bold
       set -x color_initial_segment_jobs     $base05 $base0C --bold
 
       set -x color_path                     $base02 $base05
@@ -608,7 +608,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_initial_segment_exit     $white $red[2] --bold
       set -x color_initial_segment_private  $white $grey[3]
-      set -x color_initial_segment_su       $white $green[2] --bold
+      set -x color_initial_segment_su       $red[2] $white --bold
       set -x color_initial_segment_jobs     $white $blue[3] --bold
 
       set -x color_path                     $grey[3] $grey[2]
