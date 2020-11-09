@@ -149,7 +149,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       set -x color_nix                      brblue $colorfg --bold
 
     case 'zenburn'
-      set -l grey   333333 # a bit darker than normal zenburn grey
+      set -l grey   3F3F3F
       set -l red    CC9393
       set -l green  7F9F7F
       set -l yellow E3CEAB
@@ -374,13 +374,13 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       set -x color_initial_segment_su       $base2 $green --bold
       set -x color_initial_segment_jobs     $base2 $blue --bold
 
-      set -x color_path                     $base02 $base0
-      set -x color_path_basename            $base02 $base1 --bold
-      set -x color_path_nowrite             $base02 $orange
-      set -x color_path_nowrite_basename    $base02 $orange --bold
+      set -x color_path                     $base01 $base0
+      set -x color_path_basename            $base01 $base1 --bold
+      set -x color_path_nowrite             $base01 $orange
+      set -x color_path_nowrite_basename    $base01 $orange --bold
 
       set -x color_repo                     $green $colorfg
-      set -x color_repo_work_tree           $base02 $colorfg --bold
+      set -x color_repo_work_tree           $base01 $colorfg --bold
       set -x color_repo_dirty               $red $colorfg
       set -x color_repo_staged              $yellow $colorfg
 
@@ -393,8 +393,8 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       set -x color_aws_vault                $violet $base3 --bold
       set -x color_aws_vault_expired        $violet $orange --bold
       set -x color_label                    $yellow $colorfg
-      set -x color_username                 $base02 $blue --bold
-      set -x color_hostname                 $base02 $blue
+      set -x color_username                 $base01 $blue --bold
+      set -x color_hostname                 $base01 $blue
       set -x color_rvm                      $red $colorfg --bold
       set -x color_nvm                      $green $colorfg --bold
       set -x color_virtualfish              $cyan $colorfg --bold
@@ -600,7 +600,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       set -l blue     48b4fb 005faf 255e87
       set -l orange   f6b117 unused 3a2a03
       set -l brown    bf5e00 803f00 4d2600
-      set -l grey     cccccc 999999 333333
+      set -l grey     cccccc 999999 3F3F3F
       set -l white    ffffff
       set -l black    000000
       set -l ruby_red af0000
