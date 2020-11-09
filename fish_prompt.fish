@@ -92,6 +92,9 @@ function __charliethefish_git_branch -S -d 'Get the current git branch (or commi
         [ "$theme_use_abbreviated_branch_name" = 'yes' ]
         and set truncname (string replace -r '^(.{17}).{3,}(.{5})$' "\$1…\$2" $branch)
 
+        [ -n "$theme_abbreviate_branch_name_regex_rule" ]
+        and set truncname (echo "$branch" | sed -r "$theme_abbreviate_branch_name_regex_rule")
+
         echo $branch_glyph $truncname
         and return
     end
