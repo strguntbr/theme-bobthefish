@@ -117,6 +117,8 @@ function charliethefish_display_colors -a color_scheme -d 'Print example prompt 
   __charliethefish_finish_segments
   echo
 
+  __charliethefish_start_segment $color_label
+  echo -n "label "
   __charliethefish_start_segment $color_username
   echo -n username
   set_color normal
