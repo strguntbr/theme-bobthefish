@@ -528,16 +528,16 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $pink $bg --bold
       set -x color_k8s                      $green $fg --bold
-      set -x color_aws_vault                $comment $yellow --bold
+      set -x color_aws_vault                $comment $green --bold
       set -x color_aws_vault_expired        $comment $red --bold
       set -x color_label                    $orange $bg
       set -x color_username                 $selection $cyan --bold
       set -x color_hostname                 $selection $cyan
       set -x color_rvm                      $red $bg --bold
       set -x color_nvm                      $green $bg --bold
-      set -x color_virtualfish              $comment $bg --bold
+      set -x color_virtualfish              $comment $fg --bold
       set -x color_virtualgo                $cyan $bg --bold
-      set -x color_desk                     $comment $bg --bold
+      set -x color_desk                     $comment $fg --bold
       set -x color_nix                      $cyan $bg --bold
 
     case 'nord'
