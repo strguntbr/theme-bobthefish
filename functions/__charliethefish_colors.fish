@@ -616,10 +616,10 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
       set -x color_path_nowrite             $red[3] $red[1]
       set -x color_path_nowrite_basename    $red[3] $red[1] --bold
 
-      set -x color_repo                     $green[1] $green[3]
+      set -x color_repo                     $green[1] $black
       set -x color_repo_work_tree           $grey[3] $white --bold
-      set -x color_repo_dirty               $red[2] $white
-      set -x color_repo_staged              $orange[1] $orange[3]
+      set -x color_repo_dirty               $red[2] $black
+      set -x color_repo_staged              $orange[1] $black
 
       set -x color_vi_mode_default          $grey[2] $grey[3] --bold
       set -x color_vi_mode_insert           $green[2] $grey[3] --bold
