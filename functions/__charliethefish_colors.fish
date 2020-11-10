@@ -28,6 +28,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  brcyan $colorfg
       set -x color_k8s                      magenta white --bold
+      set -x color_aws_profile              yellow $colorfg
       set -x color_aws_vault                blue $colorfg --bold
       set -x color_aws_vault_expired        blue red --bold
       set -x color_label                    bryellow $colorfg
@@ -64,6 +65,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  brcyan $colorfg
       set -x color_k8s                      magenta white --bold
+      set -x color_aws_profile              yellow $colorfg
       set -x color_aws_vault                blue $colorfg --bold
       set -x color_aws_vault_expired        blue red --bold
       set -x color_label                    bryellow $colorfg
@@ -100,6 +102,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  brcyan $colorfg
       set -x color_k8s                      magenta white --bold
+      set -x color_aws_profile              yellow $colorfg
       set -x color_aws_vault                blue $colorfg --bold
       set -x color_aws_vault_expired        blue red --bold
       set -x color_label                    bryellow $colorfg
@@ -136,6 +139,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  brcyan $colorfg
       set -x color_k8s                      magenta white --bold
+      set -x color_aws_profile              yellow $colorfg
       set -x color_aws_vault                blue $colorfg --bold
       set -x color_aws_vault_expired        blue red --bold
       set -x color_label                    bryellow $colorfg
@@ -178,6 +182,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $blue $green --bold
       set -x color_k8s                      $green $white --bold
+      set -x color_aws_profile              $yellow $grey
       set -x color_aws_vault                $blue $grey --bold
       set -x color_aws_vault_expired        $blue $red --bold
       set -x color_label                    $orange $grey
@@ -231,6 +236,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $base0C $colorfg --bold
       set -x color_k8s                      $base06 $colorfg --bold
+      set -x color_aws_profile              $base09 $colorfg
       set -x color_aws_vault                $base0D $colorfg --bold
       set -x color_aws_vault_expired        $base0D $base08 --bold
       set -x color_label                    $base09 $colorfg
@@ -284,6 +290,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $base0C $colorfg --bold
       set -x color_k8s                      $base0B $colorfg --bold
+      set -x color_aws_profile              $base09 $colorfg
       set -x color_aws_vault                $base0D $base0A --bold
       set -x color_aws_vault_expired        $base0D $base08 --bold
       set -x color_label                    $base09 $colorfg
@@ -337,6 +344,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $violet $colorfg --bold
       set -x color_k8s                      $green $colorfg --bold
+      set -x color_aws_profile              $violet $colorfg
       set -x color_aws_vault                $violet $base3 --bold
       set -x color_aws_vault_expired        $violet $orange --bold
       set -x color_label                    $yellow $colorfg
@@ -390,6 +398,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $violet $colorfg --bold
       set -x color_k8s                      $green $colorfg --bold
+      set -x color_aws_profile              $violet $colorfg
       set -x color_aws_vault                $violet $base3 --bold
       set -x color_aws_vault_expired        $violet $orange --bold
       set -x color_label                    $yellow $colorfg
@@ -436,6 +445,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $blue[1] $white --bold
       set -x color_k8s                      $green[1] $colorfg --bold
+      set -x color_aws_profile              $orange[1] $orange[3]
       set -x color_aws_vault                $blue[3] $orange[1] --bold
       set -x color_aws_vault_expired        $blue[3] $red[3] --bold
       set -x color_label                    $orange[1] $blue[3]
@@ -481,6 +491,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $blue[2] $fg[2] --bold
       set -x color_k8s                      $green[2] $fg[2] --bold
+      set -x color_aws_profile              $yellow[1] $bg[1]
       set -x color_aws_vault                $blue[2] $yellow[1] --bold
       set -x color_aws_vault_expired        $blue[2] $red[1] --bold
       set -x color_label                    $yellow[2] $fg[2]
@@ -528,7 +539,8 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $pink $bg --bold
       set -x color_k8s                      $green $fg --bold
-      set -x color_aws_vault                $comment $green --bold
+      set -x color_aws_profile              $yellow $bg
+      set -x color_aws_vault                $comment $yellow --bold
       set -x color_aws_vault_expired        $comment $red --bold
       set -x color_label                    $orange $bg
       set -x color_username                 $selection $cyan --bold
@@ -581,6 +593,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $base02 $colorfg --bold
       set -x color_k8s                      $base02 $colorfg --bold
+      set -x color_aws_profile              $base0D $colorfg
       set -x color_aws_vault                $base0A $base0D --bold
       set -x color_aws_vault_expired        $base0A $base0B --bold
       set -x color_label                    $base0D $colorfg
@@ -627,6 +640,7 @@ function __charliethefish_colors -S -a color_scheme -d 'Define colors used by ch
 
       set -x color_vagrant                  $blue[1] $white --bold
       set -x color_k8s                      $green[2] $white --bold
+      set -x color_aws_profile              $orange[1] $orange[3]
       set -x color_aws_vault                $blue[3] $orange[1] --bold
       set -x color_aws_vault_expired        $blue[3] $red[3] --bold
       set -x color_label                    $orange[1] $blue[3]

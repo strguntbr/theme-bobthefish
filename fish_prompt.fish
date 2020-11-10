@@ -693,6 +693,18 @@ function __charliethefish_prompt_aws_vault_profile -S -d 'Show AWS Vault profile
     echo -ns $segment " "
 end
 
+function __charliethefish_prompt_aws_profile -S -d 'Show active AWS profile'
+    [ "$theme_display_aws_profile" != 'no' ]
+    or return
+
+    [ -n "$AWS_PROFILE" ]
+    or return
+
+    set -l profile $AWS_PROFILE
+
+    __charliethefish_start_segment $color_aws_profile
+    echo -ns $aws_glyphs " " $profile " "
+end
 
 # ==============================
 # User / hostname info segments
@@ -1135,6 +1147,7 @@ function fish_prompt -d 'charliethefish, a fish theme optimized for awesome'
     __charliethefish_prompt_k8s_context
 
     # Cloud Tools
+    __charliethefish_prompt_aws_profile
     __charliethefish_prompt_aws_vault_profile
 
     # Virtual environments

@@ -151,6 +151,10 @@ function charliethefish_display_colors -a color_scheme -d 'Print example prompt 
   echo -ns $desk_glyph desk ' '
   __charliethefish_finish_segments
 
+  __charliethefish_start_segment $color_aws_profile
+  echo -ns aws-profile ' '
+  __charliethefish_finish_segments
+
   __charliethefish_start_segment $color_aws_vault
   echo -ns aws-vault ' (' active ') '
   __charliethefish_finish_segments

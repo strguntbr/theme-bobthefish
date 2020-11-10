@@ -30,6 +30,9 @@ function __charliethefish_glyphs -S -d 'Define glyphs used by charliethefish'
   # Kubernetes glyphs
   set -x k8s_glyph               \u2388 # '⎈'
 
+  # AWS glyphs
+  set -x aws_glyphs              \u2380 # '⎀'
+
   # Vagrant glyphs
   set -x vagrant_running_glyph   \u2191 # ↑ 'running'
   set -x vagrant_poweroff_glyph  \u2193 # ↓ 'poweroff'
