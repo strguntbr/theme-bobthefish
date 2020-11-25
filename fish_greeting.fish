@@ -1,8 +1,7 @@
 function fish_greeting
     if command -s fortune >/dev/null
         if command -s cowsay >/dev/null
-            test -e $OMF_PATH/themes/charliethefish/fish.cow
-                and set cow -f $OMF_PATH/themes/charliethefish/fish.cow
+            set cow -f (dirname (status --current-filename))/fish.cow
             if command -s lolcat >/dev/null
                 command fortune | cowsay $cow -n | lolcat
             else
